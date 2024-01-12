@@ -58,7 +58,7 @@ const sortedManifest = IconsManifest.sort((a, b) =>
       <ul class="sidebar--links">
         <li>
           <!-- <ActiveLink href="/"> -->
-          <a class="rounded px2 py1" href="/react-icons/">Home</a>
+          <a class="rounded px2 py1 item-menu" href="/react-icons/">Home</a>
           <!-- </ActiveLink> -->
         </li>
         {
@@ -66,7 +66,7 @@ const sortedManifest = IconsManifest.sort((a, b) =>
             <li>
               <a
                 href={`/react-icons/icons/${icon.id}/`}
-                class={`rounded px2 py1${
+                class={`item-menu rounded px2 py1${
                   activeIconSet === icon.id ? " active" : ""
                 }`}
               >
@@ -84,7 +84,9 @@ const sortedManifest = IconsManifest.sort((a, b) =>
       @import "../styles/global.scss";
     </style>
     <script is:inline>
-      function onButtonClick() {
+      function toogleSidebarIsOpen(event) {
+        event.stopPropagation();
+
         const sidebar = document.querySelector("ul.sidebar--links");
         sidebar.classList.toggle("active");
 
@@ -93,7 +95,14 @@ const sortedManifest = IconsManifest.sort((a, b) =>
       }
       document
         .querySelector("button.menu")
-        .addEventListener("click", onButtonClick);
-    </script>
+        .addEventListener("click", toogleSidebarIsOpen);
+
+      document
+      .querySelectorAll("a.item-menu").forEach(elemento => {
+        elemento.addEventListener("click", toogleSidebarIsOpen);
+      });
+      
+        
+</script>
   </body>
 </html>
